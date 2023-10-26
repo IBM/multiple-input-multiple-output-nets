@@ -1,0 +1,50 @@
+A guide through the lra_config.py file
+
+"listops":{
+        "dataset":{
+            "train":96000,  ### Size of training set in number of samples
+            "dev":2000,     ### Size of evaluation dataset
+            "test":2000,    ### Size of test dataset
+        },
+        "model":{
+            "learn_pos_emb":True,           ### Learn positional embeddings or use fixed ones
+            "tied_weights":False,           ### If True, all of the encoder blocks will have the same weights
+            "embedding_dim":512,            ### Dimensionality of token embeddings
+            "transformer_hidden_dim":1024,  ### Dimensionality of the encoder block MLP hidden layer
+            "head_dim":64,                  ### Head dimension
+            "num_head":8,                   ### Number of heads
+            "num_layers":1,                 ### Number of encoder block layers
+            "vocab_size":32,                ### Upper bound on the number of distinct tokens, used when embedding tokens
+            "max_seq_len":2000,             ### Upper bound on the sequence length, used for position encoding
+            "dropout_prob":0.1,             ### Dropout probability 
+            "attention_dropout":0.1,        ### Dropout probability on the output of multi-headed attention
+            "pooling_mode":"MEAN",          ### Pooling mode. Available options: "MEAN" and "CLS"
+            "num_classes":10,               ### Number of classes in the problem
+        },
+        "training":{
+            "mixed_precision": False,       ### Enable/disable automatic mixed precision training
+            "batch_size":32,                ### What could this be???
+            "lr_scheduler": "exp_decay",    ### Learning rate scheduler. Available options: "exp_decay", "linear", "cos", "fixed".
+            "learning_rate":0.001,          ### Initial learning rate
+            "learning_rate_decay": 0.9,     ### Learning rate decay. Only needed for the "exp_decay" scheduler
+            "weight_decay":0,               ### Weight decay factor
+            "num_epochs":20,                ### Number of training epochs
+            "num_eval_steps":1000,          ### Number of steps (batches) to evaluate the model on after each epoch
+            "warmup_steps": 1000,           ### Number of warmup steps (batches). Only available for the "linear" and "cos" schedulers
+            "final_div_factor":100          ### For "linear" and "cos" schedulers, the final learning rate is determined as learning_rate / final_div_factor
+        },
+        "gpu_memory":{                      ### Here you can specify the maximum number of samples to be processed in a single batch \
+            "softmax":32,                   ### If gpu_memory is smaller than batch_size, each batch will be split into several chunks of size specified here. \
+            "hrr-individual":32,            ### The gradients will be accumulated across the chunks for each step.
+            "hrr-bundled":64,
+            "hrr-quadratic":32,
+            "tpr":32
+        },
+        "extra_attn_config":{                                           ### Turning gradient checkpointing on may significantly reduce the memory usage of the model, at a computational cost \
+            "softmax":{"attention_grad_checkpointing":True},            ### For details of operation, see https://github.com/cybertronai/gradient-checkpointing
+            "hrr-individual":{"attention_grad_checkpointing":False},
+            "hrr-bundled":{"attention_grad_checkpointing":False},
+            "hrr-quadratic":{"attention_grad_checkpointing":False},
+            "tpr":{"attention_grad_checkpointing":False}
+        }
+    }
