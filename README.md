@@ -16,7 +16,7 @@ This repository contains the implementation of MIMOConv and MIMOFormer. Details 
 If you use the work released here for your research, please cite our paper:
 ```
 @article{menet2023mimo,
-  title={},
+  title={MIMONets: Multiple-Input-Multiple-Output Neural Networks Exploiting Computation in Superposition},
   author={Menet, Nicolas and Hersche, Michael and Karunaratne, Geethan and Benini, Luca and Sebastian, Abu and Rahimi, Abbas},
   journal={Advances in Neural Information Processing Systems (NeurIPS)},
   volume={36},
