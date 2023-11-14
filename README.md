@@ -11,6 +11,8 @@ _NeurIPS'23_
 
 This repository contains the implementation of MIMOConv and MIMOFormer. Details and instructions can be found in the corresponding folder. 
 
+## [[Paper]](https://openreview.net/pdf?id=ox7aynitoW)
+
 ## Citation
 
 If you use the work released here for your research, please cite our paper:
